@@ -1,0 +1,76 @@
+ <!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+<script>
+function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    var text;
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                text = rawFile.responseText;
+            }
+        }
+    }
+    rawFile.send(null);
+    return text;
+}
+
+
+function textParser(text){
+  var newText = text.split(";;");
+  var iniArray = [];
+  for (i=0;i<newText.length;i++) {
+    var regex = /[A-Z]{3}[^ ].*/;
+    if (regex.test(newText[i])) {
+      iniArray.push("|"+Array(6*newText[i].split("-").length).join("-")+newText[i].split("-")+" "+newText[i].split("-").length);
+    }
+
+  }
+  return iniArray;
+}
+
+
+function writeTextFile(content){
+  var fso = new ActiveXObject("Scripting.FileSystemObject");
+  var fh = fso.OpenTextFile("newdata.txt", 8, false, 0);
+  fh.WriteLine(content);
+  fh.Close();
+}
+
+
+function printertest(num) {
+  var allT;
+  var parsed;
+  for (var i=0; i<num; i++) {
+    allT = readTextFile("/home/cyril/Dropbox/arbeit/swisscom/OE_View/oes.txt");
+    parsed = textParser(allT);
+    writeTextFile(parsed);
+    for (i=0; i<parsed.length; i++) {
+      document.write("<p>"+parsed[i]+"</p>");
+    }
+    document.write("<p>"+i+"</p>");
+  }
+  return allT;
+}
+
+var end = printertest(3);
+
+</script>
+
+
+</body>
+</html>
