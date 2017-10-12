@@ -13,7 +13,7 @@
 function readTextFile(file)
 {
     var rawFile = new XMLHttpRequest();
-    var text;
+    var text = "";
     rawFile.open("GET", file, false);
     rawFile.onreadystatechange = function ()
     {
@@ -44,21 +44,13 @@ function textParser(text){
 }
 
 
-function writeTextFile(content){
-  var fso = new ActiveXObject("Scripting.FileSystemObject");
-  var fh = fso.OpenTextFile("newdata.txt", 8, false, 0);
-  fh.WriteLine(content);
-  fh.Close();
-}
-
 
 function printertest(num) {
   var allT;
   var parsed;
   for (var i=0; i<num; i++) {
-    allT = readTextFile("/home/cyril/Dropbox/arbeit/swisscom/OE_View/oes.txt");
+    allT = readTextFile("/home/cyril/Dropbox/arbeit/swisscom/OE_View/templates/oes.txt");
     parsed = textParser(allT);
-    writeTextFile(parsed);
     for (i=0; i<parsed.length; i++) {
       document.write("<p>"+parsed[i]+"</p>");
     }
