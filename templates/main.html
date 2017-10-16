@@ -6,8 +6,9 @@
 </head>
 <style>
 .divbox {
+  font-size: 70%;
   padding: 6px;
-  position: relative;
+  position: absolute;
   text-align: center;
   margin-bottom: 5px;
   white-space: nowrap;
@@ -15,6 +16,12 @@
   display: inline-block;
   border-radius: 9px;
   border: 1px solid blue;
+}
+
+#droparea {
+  position: absolute;
+  height: 9000px;
+  width: 90000px
 }
 </style>
 
@@ -44,9 +51,9 @@ function drop(target, event) {
 
 {% for d in data %}
 {% if d.show == "y" %}
+<!--<div class="divbox" draggable="true" id="draggable{{ loop.index }}" ondragstart="drag(this,event)" >{{ d.name }}</div>-->
 <div class="divbox" draggable="true" id="draggable{{ loop.index }}" ondragstart="drag(this,event)" style="left: {{ d.pos_x }}px; top: {{ d.pos_y }}px">{{ d.name }}</div>
 {% endif %}
 {% endfor %}
-
 </body>
 </html>
